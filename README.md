@@ -1,1 +1,1 @@
-# student-database-jsp-servlet-mysql
+# student-database-jsp-servlet-mysql app using JSP, Servlet and MySQL Database.
