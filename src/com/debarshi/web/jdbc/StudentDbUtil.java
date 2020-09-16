@@ -42,7 +42,7 @@ public class StudentDbUtil {
 				int id = myRs.getInt("id");
 				String firstName = myRs.getString("first_name");
 				String lastName = myRs.getString("last_name");
-				String email = myRs.getNString("email");
+				String email = myRs.getString("email");
 				
 				// create new student object
 				Student tempStudent = new Student(id, firstName, lastName, email); 
