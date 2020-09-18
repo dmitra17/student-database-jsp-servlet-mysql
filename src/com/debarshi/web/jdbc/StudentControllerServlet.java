@@ -38,6 +38,30 @@ public class StudentControllerServlet extends HttpServlet {
 			throw new ServletException(exc);
 		}
 	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        try {
+            // read the "command" parameter
+            String theCommand = request.getParameter("command");
+                    
+            // route to the appropriate method
+            switch (theCommand) {
+                            
+            case "ADD":
+                addStudent(request, response);
+                break;
+                                
+            default:
+                listStudents(request, response);
+            }
+                
+        }
+        catch (Exception exc) {
+            throw new ServletException(exc);
+        }
+        
+    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -56,9 +80,6 @@ public class StudentControllerServlet extends HttpServlet {
 			case "LIST": 
 				// list the students
 				listStudents(request, response);
-				break;
-			case "ADD":
-				addStudent(request, response);
 				break;
 			case "LOAD":
 				loadStudent(request, response);
@@ -144,7 +165,8 @@ public class StudentControllerServlet extends HttpServlet {
 		studentDbUtil.addStudent(theStudent);
 		
 		// send back to main page (student list)
-		listStudents(request, response);
+		// SEND AS REDIRECT to avoid multiple-browser reload issue
+        response.sendRedirect(request.getContextPath() + "/StudentControllerServlet?command=LIST");
 	}
 
 	private void listStudents(HttpServletRequest request, HttpServletResponse response) throws Exception {
